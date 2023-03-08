@@ -9,13 +9,14 @@
       src="https://www.googletagmanager.com/gtag/js?id=G-Z797K0K5MF"
     ></script>
     <script>
+      window.GTAG_ID = "G-Z797K0K5MF";
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
 
-      gtag("config", "G-Z797K0K5MF");
+      gtag("config", window.GTAG_ID);
     </script>
     <script>
       // load Branch
@@ -45,13 +46,16 @@
         ),
         0
       );
-      // init Branch
-      branch.init(
-        "key_live_hkDytPACtipny3N9XmnbZlapBDdj4WIL",
-        function (err, data) {
-          console.log("branch online 🚀", err, data);
-        }
-      );
+      gtag("get", window.GTAG_ID, "client_id", (client_id) => {
+        // init Branch
+        branch.init(
+          "key_live_hkDytPACtipny3N9XmnbZlapBDdj4WIL",
+          { metadata: { $google_analytics_client_id: client_id } },
+          function (err, data) {
+            console.log("branch online 🚀", err, data);
+          }
+        );
+      });
     </script>
   </head>
   <body>
