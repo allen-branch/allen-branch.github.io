@@ -69,11 +69,13 @@
     <script>
       document.querySelector("#buy").addEventListener("click", (e) => {
         e.preventDefault();
-        console.log("buying one");
+        const item = generateRandomEmoji();
+        console.log("buying one", item);
         gtag("event", "buy", {
           event_category: "engagement",
           event_label: "buy",
           value: 1,
+          item,
         });
         var event_and_custom_data = {
           transaction_id: "tras_Id_1232343434",
@@ -86,12 +88,13 @@
           description: "Preferred purchase",
           purchase_loc: "Palo Alto",
           store_pickup: "unavailable",
+          item,
         };
 
         var content_items = [
           {
             $content_schema: "COMMERCE_PRODUCT",
-            $og_title: "Nike Shoe",
+            $og_title: item,
             $og_description: "Start loving your steps",
             $og_image_url: "http://example.com/img1.jpg",
             $canonical_identifier: "nike/1234",
@@ -99,7 +102,7 @@
             $price: 101.2,
             $locally_indexable: true,
             $quantity: 1,
-            $sku: "1101123445",
+            $sku: item,
             $product_name: "Runner",
             $product_brand: "Nike",
             $product_category: "Sporting Goods",
@@ -119,7 +122,7 @@
             $longitude: -97.5,
             $image_captions: ["my_img_caption1", "my_img_caption_2"],
             $condition: "NEW",
-            $custom_fields: { foo1: "bar1", foo2: "bar2" },
+            $custom_fields: { foo1: "bar1", foo2: "bar2", item },
           },
           {
             $og_title: "Nike Woolen Sox",
@@ -154,9 +157,7 @@
               console.error(err);
               alert("Error: " + err.message);
             } else {
-              // random emoji selection
-
-              alert("You bought a " + generateRandomEmoji());
+              alert("You bought a " + item);
             }
           }
         );
