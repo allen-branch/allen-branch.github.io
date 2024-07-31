@@ -1,6 +1,5 @@
 <html>
   <title>Android</title>
-
   <body>
     <h1>Android</h1>
     <p>
@@ -8,22 +7,31 @@
       app link below to be directed:
     </p>
     <form id="Form">
-      <input type="text" id="AppLink" name="AppLink" placeholder="myapp://" />
+      <input
+        type="text"
+        id="InputAppLink"
+        name="AppLink"
+        placeholder="myapp://"
+      />
       <button type="submit">Submit</button>
     </form>
   </body>
   <script>
-    window.AppLink.value = localStorage.getItem("AppLink");
-    window.AppLink.addEventListener("input", function (e) {
+    function updateAppLink() {
+      var appLink = localStorage.getItem("AppLink");
+      window.InputAppLink.value = appLink;
+    }
+
+    updateAppLink();
+
+    window.InputAppLink.addEventListener("input", function (e) {
       var appLink = e.target.value;
-      localStorage.setItem("AppLink", appLink); // remember the app link
-      if (appLink.includes("://")) {
-        window.AppLink.value = appLink.split("://")[0];
-      }
+      localStorage.setItem("AppLink", appLink);
     });
     window.Form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var appLink = window.AppLink.value;
+      var appLink = window.InputAppLink.value;
+      console.log("Navigating to: " + appLink);
       window.location.href = appLink;
     });
   </script>
