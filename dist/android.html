@@ -1,0 +1,30 @@
+<html>
+  <title>Android</title>
+
+  <body>
+    <h1>Android</h1>
+    <p>
+      You are here because you did not have the Android app installed. Enter the
+      app link below to be directed:
+    </p>
+    <form id="Form">
+      <input type="text" id="AppLink" name="AppLink" placeholder="myapp://" />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+  <script>
+    window.AppLink.value = localStorage.getItem("AppLink");
+    window.AppLink.addEventListener("input", function (e) {
+      var appLink = e.target.value;
+      localStorage.setItem("AppLink", appLink); // remember the app link
+      if (appLink.includes("://")) {
+        window.AppLink.value = appLink.split("://")[0];
+      }
+    });
+    window.Form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var appLink = window.AppLink.value;
+      window.location.href = appLink;
+    });
+  </script>
+</html>
